@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <title>Добавить пользователя</title>
+    <h:outputStylesheet library="css" name="subPageStyle.css"/>
+</h:head>
+<h:body>
+    <div class="content">
+    <h:form id="userForm">
+        <h:panelGrid columns="3" columnClasses="rightAlign,leftAlign">
+            <h:outputLabel for="firstName" value="Имя:">
+            </h:outputLabel>
+            <h:inputText id="firstName"
+                         label="Имя"
+                         value="#{userBean.name}"
+                         required="true">
+                <f:validateLength minimum="2" maximum="30">
+                </f:validateLength>
+            </h:inputText>
+
+            <h:message for="firstName" style="color:red" />
+
+            <h:outputLabel for="surname" value="Фамилия:">
+            </h:outputLabel>
+            <h:inputText id="surname"
+                         label="Фамилия"
+                         value="#{userBean.surname}"
+                         required="true">
+                <f:validateLength minimum="2" maximum="30">
+                </f:validateLength>
+            </h:inputText>
+
+            <h:message for="surname" style="color:red" />
+
+            <h:outputLabel for="birthDate" value="Дата рождения:">
+            </h:outputLabel>
+            <h:inputText id="birthDate"
+                         label="Дата рождения"
+                         value="#{userBean.birthDate}"
+                         required="true">
+                <f:convertDateTime pattern = "yyyy-M-d" />
+            </h:inputText>
+
+            <h:message for="birthDate" style="color:red" />
+
+            <h:outputLabel for="address" value="Адрес проживания:">
+            </h:outputLabel>
+            <h:inputText id="address"
+                         label="Адрес проживания"
+                         value="#{userBean.address}"
+                         required="true">
+                <f:validateLength minimum="2" maximum="30">
+                </f:validateLength>
+            </h:inputText>
+
+            <h:message for="address" style="color:red" />
+
+            <h:commandButton onclick="history.go(-1); return false;"
+                             value="Отмена">
+            </h:commandButton>
+
+            <h:commandButton action="#{usersApi.addUser(userBean)}"
+                             value="Добавить">
+            </h:commandButton>
+        </h:panelGrid>
+    </h:form>
+    </div>
+</h:body>
+</html>

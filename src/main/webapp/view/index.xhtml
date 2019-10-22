@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" >
+<f:view>
+    <h:head>
+        <title>Rest API Homework</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <h:outputStylesheet library="css" name="styles.css"/>
+
+    </h:head>
+    <h:body>
+        <div class="content">
+            <h:form>
+            <h:dataTable value="#{tableBean.usersList}" var="var"
+                         styleClass="customers" headerClass="customersHeader"
+                         columnClasses="name, text">
+                <h:column>
+                    <f:facet name="header">ID</f:facet>
+                    #{var.key}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Имя</f:facet>
+                    #{var.value.name}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Фамилия</f:facet>
+                    #{var.value.surname}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header"/>
+                    <h:commandButton value="Подробнее" action="showuser">
+                        <f:param name="usrId" value="#{var.key}"/>
+                    </h:commandButton>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header"/>
+                    <h:commandButton value="Изменить" action="edituser">
+                        <f:param name="usrId" value="#{var.key}"/>
+                    </h:commandButton>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header"/>
+                    <h:commandButton action="#{usersApi.removeUser(var.key)}" value="Удалить"/>
+                </h:column>
+            </h:dataTable>
+            </h:form>
+        </div>
+        <div class="commandbar">
+            <h:form>
+
+                <h:commandButton id="adduser" action="adduser" value="Добавить пользователя">
+                    <f:param name="usrId" value=""/>
+                </h:commandButton>
+
+            </h:form>
+        </div>
+    </h:body>
+</f:view>
+</html>

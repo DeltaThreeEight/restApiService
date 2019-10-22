@@ -1,0 +1,91 @@
+body {
+    text-align: center;
+    background-color: #FF8C00;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.content {
+    margin: 0 auto;
+    width: 600px;
+    height: 360px;
+    background: #FFFACD;
+    padding: 5px 20px 5px 5px;
+    border-radius: 13px;
+    border-bottom: solid 5px #FF7F50;
+    overflow: scroll;
+}
+
+.commandbar {
+    margin: 0 auto;
+    width: 600px;
+    height: 40px;
+    background: #FFFACD;
+    padding: 5px 20px 5px 5px;
+    border-radius: 13px;
+    border-bottom: solid 5px #FF7F50;
+}
+
+input {
+    outline: none;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    padding: 3px 5px;
+    margin: 1px;
+}
+input:focus {
+    border-color: #fc0;
+}
+
+table {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif, serif;
+    font-size: 12px;
+    border-radius: 10px;
+    border-spacing: 0;
+    text-align: center;
+    width: 100%;
+}
+
+#adduser {
+    float: right;
+}
+
+button {
+    border-radius: 5px;
+    width: 90%;
+}
+
+
+
+th {
+    background: #BCEBDD;
+    color: black;
+    padding: 5px 10px;
+}
+th, td {
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    border-color: white;
+}
+th:first-child, td:first-child {
+    text-align: left;
+}
+th:first-child {
+    border-top-left-radius: 10px;
+}
+th:last-child {
+    border-top-right-radius: 10px;
+    border-right: none;
+}
+td {
+    padding: 5px 10px;
+    background: #F8E391;
+}
+tr:last-child td:first-child {
+    border-radius: 0 0 0 10px;
+}
+tr:last-child td:last-child {
+    border-radius: 0 0 10px 0;
+}
+tr td:last-child {
+    border-right: none;
+}
