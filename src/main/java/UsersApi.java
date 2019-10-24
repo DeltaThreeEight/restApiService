@@ -1,14 +1,14 @@
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
-@ManagedBean
 @RequestScoped
 @Path("/users")
 public class UsersApi {
 
-    private TableBean tableBean = TableBean.getInstance();
+    @Inject
+    private UserManagement userManagement;
 
     /***
      * Rest API метод, принимающий http GET запрос в формате "/rest/api/users/$id" для отображения информации о пользователе
@@ -19,22 +19,26 @@ public class UsersApi {
     @Produces("text/xml")
     @Path("{userId}")
     public User getUser(@PathParam(value="userId") String id) {
-        return tableBean.getUsers().get(Integer.parseInt(id));
+        return userManagement.find(Integer.parseInt(id));
     }
 
     /***
-     * Rest API метод, принимающий http POST запрос в формате "/rest/api/users/$id" для изменения информации о пользователе
-     * @param id идентификатор пользователя
+     * Rest API метод, принимающий http POST запрос в формате "/rest/api/users" для изменения информации о пользователе
      * @param user информация о пользователе в формате XML
      */
     @POST
     @Consumes("text/xml")
-    @Path("{userId}")
-    public Response editUser(@PathParam(value="userId") String id, User user) {
-        if (tableBean.setUser(Integer.parseInt(id), user))
-            return Response.status(200).entity("User successfully" + id + " edited!").build();
-        else
-            return Response.status(204).entity("User " + id + " doesn't exist.").build();
+    public Response editUser(User user) {
+        try {
+            if (userManagement.find(user.getId()) == null)
+                throw new NullPointerException("user not found");
+
+            userManagement.edit(user);
+            return Response.status(200).entity("User successfully edited!").build();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
     }
 
     /***
@@ -44,8 +48,13 @@ public class UsersApi {
     @PUT
     @Consumes("text/xml")
     public Response addUser(User user) {
-        tableBean.addUser(user);
-        return Response.status(200).entity("User successfully added...\n" + user).build();
+        try {
+            userManagement.register(user);
+            return Response.status(200).entity("User successfully added...\n" + user).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
     }
 
     /***
@@ -55,35 +64,15 @@ public class UsersApi {
     @DELETE
     @Path("{userId}")
     public Response removeUser(@PathParam(value="userId") String id) {
-        User user = tableBean.deleteUser(Integer.parseInt(id));
-        if (user != null)
+        try {
+            userManagement.delete(Integer.parseInt(id));
             return Response.status(200).entity("User " + id + " successfully removed...\n").build();
-        else
+        } catch (Exception e) {
             return Response.status(204).entity("User " + id + " doesn't exist.").build();
+        }
     }
 
-    /***
-     * Вспомогательный метод для доступа к REST API с JSP страницы
-     */
-    public String editUser(UserBean user) {
-        editUser(user.getUsrId()+"", new User(user.getUsrId(), user.getName(), user.getSurname(), user.getAddress(), user.getBirthDate()));
-        return "confirmation";
-    }
 
-    /***
-     * Вспомогательный метод для доступа к REST API с JSP страницы
-     */
-    public String addUser(UserBean user) {
-        addUser(new User(0, user.getName(), user.getSurname(), user.getAddress(), user.getBirthDate()));
-        return "confirmation";
-    }
 
-    /***
-     * Вспомогательный метод для доступа к REST API с JSP страницы
-     */
-    public String removeUser(int id) {
-        removeUser(id+"");
-        return "confirmation";
-    }
 
 }

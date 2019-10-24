@@ -14,41 +14,45 @@
     <h:body>
         <div class="content">
             <h:form>
-            <h:dataTable value="#{tableBean.usersList}" var="var"
+            <h:panelGroup rendered="#{empty users}">
+                <em>No registered users.</em>
+            </h:panelGroup>
+            <h:dataTable value="#{users}" var="var"
+                         rendered="#{not empty users}"
                          styleClass="customers" headerClass="customersHeader"
                          columnClasses="name, text">
                 <h:column>
                     <f:facet name="header">ID</f:facet>
-                    #{var.key}
+                    #{var.id}
                 </h:column>
 
                 <h:column>
                     <f:facet name="header">Имя</f:facet>
-                    #{var.value.name}
+                    #{var.name}
                 </h:column>
 
                 <h:column>
                     <f:facet name="header">Фамилия</f:facet>
-                    #{var.value.surname}
+                    #{var.surname}
                 </h:column>
 
                 <h:column>
                     <f:facet name="header"/>
                     <h:commandButton value="Подробнее" action="showuser">
-                        <f:param name="usrId" value="#{var.key}"/>
+                        <f:param name="usrId" value="#{var.id}"/>
                     </h:commandButton>
                 </h:column>
 
                 <h:column>
                     <f:facet name="header"/>
                     <h:commandButton value="Изменить" action="edituser">
-                        <f:param name="usrId" value="#{var.key}"/>
+                        <f:param name="usrId" value="#{var.id}"/>
                     </h:commandButton>
                 </h:column>
 
                 <h:column>
                     <f:facet name="header"/>
-                    <h:commandButton action="#{usersApi.removeUser(var.key)}" value="Удалить"/>
+                    <h:commandButton action="#{usersController.delete(var.id)}" value="Удалить"/>
                 </h:column>
             </h:dataTable>
             </h:form>

@@ -1,18 +1,43 @@
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 import java.util.Date;
 
 /***
  * Класс, представляющий собой описание сущности пользователя
  */
+@Entity
 @XmlRootElement
-public class User {
+@Table(name = "users")
+public class User implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
+
+    @NotNull
+    @Size(min = 2, max = 30)
     private String name;
+
+    @NotNull
+    @Size(min = 2, max = 30)
     private String surname;
+
+    @NotNull
+    @Size(min = 2, max = 60)
     private String address;
+
+    @NotNull
     private Date birthDate;
 
     public User() {}
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

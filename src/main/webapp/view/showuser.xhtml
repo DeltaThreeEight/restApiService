@@ -1,9 +1,10 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+>
 <h:head>
     <title>Информация о пользователе</title>
     <h:outputStylesheet library="css" name="subPageStyle.css"/>
@@ -15,22 +16,22 @@
         <h:panelGrid columns="2" columnClasses="rightAlign,leftAlign">
             <h:outputText value="Имя:">
             </h:outputText>
-            <h:outputText value="#{userBean.name}">
+            <h:outputText value="#{newUser.name}">
             </h:outputText>
 
             <h:outputLabel value="Фамилия:">
             </h:outputLabel>
-            <h:outputText value="#{userBean.surname}">
+            <h:outputText value="#{newUser.surname}">
             </h:outputText>
 
             <h:outputLabel value="Дата рождения:">
             </h:outputLabel>
-            <h:outputText value="#{userBean.birthDate}">
+            <h:outputText value="#{newUser.birthDate}">
             </h:outputText>
 
             <h:outputLabel value="Адрес:">
             </h:outputLabel>
-            <h:outputText value="#{userBean.address}">
+            <h:outputText value="#{newUser.address}">
             </h:outputText>
 
             <h:commandButton action="confirmation"

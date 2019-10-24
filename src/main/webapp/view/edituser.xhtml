@@ -1,8 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
     <title>Изменить пользователя</title>
@@ -11,13 +12,13 @@
 <h:body>
     <div class="content">
     <h:form id="userForm" >
-        <h:inputHidden value="#{userBean.usrId}" id="hiddenId" />
+        <h:inputHidden value="#{newUser.id}" id="hiddenId" />
         <h:panelGrid columns="3" columnClasses="rightAlign,leftAlign">
             <h:outputLabel for="firstName" value="Имя:">
             </h:outputLabel>
             <h:inputText id="firstName"
                          label="Имя"
-                         value="#{userBean.name}"
+                         value="#{newUser.name}"
                          required="true">
                 <f:validateLength minimum="2" maximum="30">
                 </f:validateLength>
@@ -29,7 +30,7 @@
             </h:outputLabel>
             <h:inputText id="surname"
                          label="Фамилия"
-                         value="#{userBean.surname}"
+                         value="#{newUser.surname}"
                          required="true">
                 <f:validateLength minimum="2" maximum="30">
                 </f:validateLength>
@@ -41,7 +42,7 @@
             </h:outputLabel>
             <h:inputText id="birthDate"
                          label="Дата рождения"
-                         value="#{userBean.birthDate}"
+                         value="#{newUser.birthDate}"
                          required="true">
                 <f:convertDateTime pattern = "yyyy-M-d" />
             </h:inputText>
@@ -52,7 +53,7 @@
             </h:outputLabel>
             <h:inputText id="address"
                          label="Адрес проживания"
-                         value="#{userBean.address}"
+                         value="#{newUser.address}"
                          required="true">
                 <f:validateLength minimum="2" maximum="60">
                 </f:validateLength>
@@ -63,7 +64,7 @@
                              value="Отмена">
             </h:commandButton>
 
-            <h:commandButton action="#{usersApi.editUser(userBean)}"
+            <h:commandButton action="#{usersController.edit}"
                              value="Подтвердить">
             </h:commandButton>
         </h:panelGrid>
